@@ -54,12 +54,11 @@ const LoginPage: React.FC = () => {
 
       dispatch(setCredentials({ token, user }));
       navigate("/");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       alert(err.response?.data?.message || "Login failed. Please try again.");
     }
   };
-  if (token) <Navigate to="/" />;
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">

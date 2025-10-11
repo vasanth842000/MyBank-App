@@ -8,6 +8,7 @@ import NotFound from "./NotFound";
 import Users from "./screens/Users";
 import FundTransfer from "./screens/FundTransfer";
 import LoginPage from "./screens/Login";
+import { PublicRoute } from "./components/shared/PublicRoute";
 
 function App() {
   return (
@@ -21,7 +22,14 @@ function App() {
               <Route element={<Users />} path="/users" />
               <Route element={<FundTransfer />} path="/fund-transfer" />
             </Route>
-            {/* <Route element={<LoginPage />} path="/login" /> */}
+            <Route
+              element={
+                <PublicRoute>
+                  <LoginPage />
+                </PublicRoute>
+              }
+              path="/login"
+            />
             <Route element={<NotFound />} path="*" />
           </Routes>
         </Suspense>
