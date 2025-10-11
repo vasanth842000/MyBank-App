@@ -1,8 +1,14 @@
-import type { FC } from "react";
-import { Outlet } from "react-router-dom";
+import { type FC } from "react";
+
+import { Navigate, Outlet } from "react-router-dom";
 import { CircleArrowLeft } from "lucide-react";
 import { AppSidebar } from "../appSidebar/AppSidebar";
+import { useAppSelector, type RootState } from "../../redux/store";
 const Layout: FC = () => {
+  const { token } = useAppSelector((state: RootState) => state.auth);
+
+  // Redirect to login if not authenticated
+  if (!token) return <Navigate to={"/login"} />;
   return (
     <section className="w-full flex">
       <AppSidebar />

@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-import type { RootState } from "./redux/store";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
 import Layout from "./components/appLayout/Layout";
@@ -9,11 +7,9 @@ import Loader from "./components/shared/Loader";
 import NotFound from "./NotFound";
 import Users from "./screens/Users";
 import FundTransfer from "./screens/FundTransfer";
+import LoginPage from "./screens/Login";
 
 function App() {
-  const { token, user } = useSelector((state: RootState) => state.auth);
-  console.log("token", token, "user", user);
-
   return (
     <BrowserRouter>
       <section className="max-w-[1800px] mx-auto">
@@ -25,6 +21,7 @@ function App() {
               <Route element={<Users />} path="/users" />
               <Route element={<FundTransfer />} path="/fund-transfer" />
             </Route>
+            <Route element={<LoginPage />} path="/login" />
             <Route element={<NotFound />} path="*" />
           </Routes>
         </Suspense>
