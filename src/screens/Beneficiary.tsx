@@ -180,6 +180,7 @@ const Beneficiary = () => {
                   onChange={(e) => setName(e.target.value)}
                   required
                   placeholder="Enter beneficiary name"
+                  data-testid="name-input"
                 />
               </div>
 
