@@ -136,6 +136,7 @@ const Beneficiary = () => {
               setType("Add");
               setIsOpen(true);
             }}
+            data-testid="add-button"
             className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-3 rounded-xl font-bold shadow hover:scale-105 transition cursor-pointer"
           >
             Add Beneficiary
@@ -197,6 +198,7 @@ const Beneficiary = () => {
                   onChange={(e) => setAccountNumber(e.target.value)}
                   required
                   placeholder="Enter account number"
+                  data-testid="account-number-input"
                 />
               </div>
 
@@ -204,6 +206,7 @@ const Beneficiary = () => {
               <div className="flex gap-6 justify-center mt-8">
                 <button
                   type="submit"
+                  data-testid="submit-button"
                   className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-3 rounded-xl font-bold shadow hover:scale-105 transition"
                 >
                   Submit

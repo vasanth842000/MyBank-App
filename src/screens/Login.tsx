@@ -76,6 +76,7 @@ const LoginPage: React.FC = () => {
               type="text"
               id="customer_id"
               placeholder="CUST0001"
+              data-testid="customer-input"
               {...register("customer_id")}
               className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -96,6 +97,7 @@ const LoginPage: React.FC = () => {
             <input
               type="password"
               id="password"
+              data-testid="password-input"
               placeholder="********"
               {...register("password")}
               className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -109,6 +111,7 @@ const LoginPage: React.FC = () => {
 
           <button
             type="submit"
+            data-testid="login-button"
             disabled={isSubmitting}
             className="w-full py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition disabled:opacity-50"
           >
