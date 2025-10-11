@@ -1,46 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "../components/shared/Datatable";
+import Loader from "../components/shared/Loader";
+import type { Column, ITransaction, IUser } from "../@types";
+import API from "../axios";
 
 const AccountDetails = () => {
-  const [transactionList] = useState([
-    {
-      id: 1,
-      transactionDate: "10/11/2025",
-      transactionType: "Deposit",
-      amount: "$500",
-      remarks: "Test transaction",
-    },
-    {
-      id: 2,
-      transactionDate: "10/11/2025",
-      transactionType: "Withdrawal",
-      amount: "$500",
-      remarks: "Test transaction",
-    },
-    {
-      id: 3,
-      transactionDate: "10/11/2025",
-      transactionType: "Credited",
-      amount: "$500",
-      remarks: "Test transaction",
-    },
-  ]);
+  const [userDetails, setUserDetails] = useState<IUser | null>(null);
+  const [transactionList, setTransactionList] = useState<ITransaction[]>([]);
+  const [loading, setLoading] = useState(true);
+
   const [page, setPage] = useState(1);
   const [pageSize] = useState(2);
   const total = transactionList?.length;
 
-  const [userDetails] = useState({
-    name: "Muthu A",
-    accountNo: "234234234434",
-    accountType: "Savings",
-    emailId: "muthuaspu@gmail.com",
-    phone: "8056452060",
-    creationDate: "11/10/2025",
-  });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await API.get("/users/me");
+        const { user, transactions } = response.data;
+        setUserDetails(user);
+        setTransactionList(transactions || []);
+      } catch (err) {
+        console.error("Error fetching user details:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const columns = [
-    { key: "transactionDate", header: "Transaction Date" },
-    { key: "transactionType", header: "Transaction Type" },
+    fetchData();
+  }, []);
+
+  if (loading || !userDetails) return <Loader />;
+
+  const columns: Column<ITransaction>[] = [
+    { key: "transaction_date", header: "Transaction Date" },
+    { key: "transaction_type", header: "Transaction Type" },
     { key: "amount", header: "Amount" },
     { key: "remarks", header: "Remarks" },
   ];
@@ -51,7 +46,6 @@ const AccountDetails = () => {
     }
   };
 
-  // Slice data to show only the data for the current page
   const currentPageData = transactionList.slice(
     (page - 1) * pageSize,
     page * pageSize
@@ -66,53 +60,40 @@ const AccountDetails = () => {
             User Account Details
           </h2>
 
-          {/* User Info Grid */}
           <div className="h-full flex justify-center items-center">
             <div className="bg-white p-6 w-full sm:w-12/12 lg:w-4/4 xl:w-3/3">
-              {/* User Details Grid  */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* Name */}
-                <div className="flex justify-between">
+                <div className="flex gap-2">
                   <span className="text-sm font-medium text-gray-600">
                     Name:
                   </span>
                   <span className="text-sm text-gray-500">
-                    {userDetails.name}
+                    {userDetails.account_holder_name}
                   </span>
                 </div>
-
-                {/* Account No. */}
-                <div className="flex justify-between">
+                <div className="flex gap-2">
                   <span className="text-sm font-medium text-gray-600">
-                    Account No.:
+                    Account No:
                   </span>
                   <span className="text-sm text-gray-500">
-                    {userDetails.accountNo}
+                    {userDetails.account_type_account_no}
                   </span>
                 </div>
-
-                {/* Account Type */}
-                <div className="flex justify-between">
+                <div className="flex gap-2">
                   <span className="text-sm font-medium text-gray-600">
                     Account Type:
                   </span>
-                  <span className="text-sm text-gray-500">
-                    {userDetails.accountType}
-                  </span>
+                  <span className="text-sm text-gray-500">Savings</span>
                 </div>
-
-                {/* Email ID */}
-                <div className="flex justify-between">
+                <div className="flex gap-2">
                   <span className="text-sm font-medium text-gray-600">
                     Email ID:
                   </span>
                   <span className="text-sm text-gray-500">
-                    {userDetails.emailId}
+                    {userDetails.email}
                   </span>
                 </div>
-
-                {/* Phone */}
-                <div className="flex justify-between">
+                <div className="flex gap-2">
                   <span className="text-sm font-medium text-gray-600">
                     Phone:
                   </span>
@@ -120,14 +101,12 @@ const AccountDetails = () => {
                     {userDetails.phone}
                   </span>
                 </div>
-
-                {/* Creation Date */}
-                <div className="flex justify-between">
+                <div className="flex gap-2">
                   <span className="text-sm font-medium text-gray-600">
                     Creation Date:
                   </span>
                   <span className="text-sm text-gray-500">
-                    {userDetails.creationDate}
+                    {new Date(userDetails.created_date).toLocaleDateString()}
                   </span>
                 </div>
               </div>
@@ -136,14 +115,18 @@ const AccountDetails = () => {
         </div>
 
         {/* Transaction Table */}
-        <DataTable
-          columns={columns}
-          data={currentPageData}
-          page={page}
-          pageSize={pageSize}
-          total={total}
-          onPageChange={handlePageChange}
-        />
+        {currentPageData?.length > 0 ? (
+          <DataTable
+            columns={columns}
+            data={currentPageData}
+            page={page}
+            pageSize={pageSize}
+            total={total}
+            onPageChange={handlePageChange}
+          />
+        ) : (
+          <p className="text-center">No Transaction found!</p>
+        )}
       </div>
     </div>
   );
