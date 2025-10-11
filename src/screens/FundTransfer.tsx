@@ -7,15 +7,32 @@ const FundTransfer = () => {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [otpMethod, setOtpMethod] = useState("sms");
+  const [errors, setErrors] = useState<{ account?: string; amount?: string; otp?: string }>({});
 
   const handleSendOtp = () => {
+    if (!account) {
+      setErrors({ account: "Enter account number" });
+      return;
+    }
+    if (!amount) {
+      setErrors({ amount: "Enter amount" });
+      return;
+    }
+    setErrors({});
     setOtpSent(true);
     console.log(`OTP sent via ${otpMethod.toUpperCase()}`);
   };
 
   const handleTransfer = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(`Transferring ${amount} to account ${account} with OTP ${otp}`);
+    let newErrors: typeof errors = {};
+    if (!account) newErrors.account = "Enter account number";
+    if (!amount) newErrors.amount = "Enter amount";
+    if (!otp) newErrors.otp = "Enter OTP";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+      console.log(`Transferring ${amount} to account ${account} with OTP ${otp}`);
+    }
   };
 
   const handleCancel = () => {
@@ -24,6 +41,7 @@ const FundTransfer = () => {
     setOtp("");
     setOtpSent(false);
     setOtpMethod("sms");
+    setErrors({});
   };
 
   return (
@@ -45,6 +63,7 @@ const FundTransfer = () => {
             required
             placeholder="Enter account number"
           />
+          {errors.account && <p className="text-red-500 text-sm mt-1">{errors.account}</p>}
         </div>
         <div>
           <label className="block mb-2 font-semibold text-blue-600 flex items-center gap-2">
@@ -59,6 +78,7 @@ const FundTransfer = () => {
             required
             placeholder="Enter amount"
           />
+          {errors.amount && <p className="text-red-500 text-sm mt-1">{errors.amount}</p>}
         </div>
         <div>
           <label className="block mb-2 font-semibold text-blue-600">
@@ -115,6 +135,7 @@ const FundTransfer = () => {
               required
               placeholder="Enter OTP"
             />
+            {errors.otp && <p className="text-red-500 text-sm mt-1">{errors.otp}</p>}
           </div>
         )}
         <div className="flex gap-6 justify-center mt-8">
@@ -139,4 +160,5 @@ const FundTransfer = () => {
     </section>
   );
 };
+
 export default FundTransfer;
