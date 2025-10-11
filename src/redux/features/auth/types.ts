@@ -1,6 +1,8 @@
+import type { IUser } from "../../../@types";
+
 export interface AuthState {
   token: string;
-  user: string | null;
+  user: IUser | null;
   status: "idle" | "loading" | "failed";
   error: string | null;
 }   
