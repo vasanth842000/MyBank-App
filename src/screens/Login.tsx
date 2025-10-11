@@ -1,43 +1,60 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/store";
 import { setCredentials } from "../redux/features/auth/authSlice";
 import type { IUser } from "../@types";
 import API from "../axios";
 
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    customer_id: yup
+      .string()
+      .required("Customer ID is required")
+      .min(8, "Customer ID must be at least 8 characters"),
+    password: yup
+      .string()
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters"),
+  })
+  .required();
+
+// 2️⃣ Define form type
+type LoginFormInputs = {
+  customer_id: string;
+  password: string;
+};
+
 const LoginPage: React.FC = () => {
-  const [customerId, setCustomerId] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
+  // 3️⃣ Setup react-hook-form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormInputs>({
+    resolver: yupResolver(schema),
+  });
 
+  // 4️⃣ Submit handler
+  const onSubmit = async (data: LoginFormInputs) => {
     try {
-      // Call API directly
       const response = await API.post<{ token: string; user: IUser }>(
         "/users/login",
-        {
-          customer_id: customerId,
-          password,
-        }
+        data
       );
 
       const { token, user } = response.data;
 
-      // Save token & user in Redux and localStorage
       dispatch(setCredentials({ token, user }));
-
-      // Redirect to home page
       navigate("/");
     } catch (err: any) {
-      // Handle error
-      setError(
-        err.response?.data?.message || "Login failed. Please try again."
-      );
+      alert(err.response?.data?.message || "Login failed. Please try again.");
     }
   };
 
@@ -45,23 +62,28 @@ const LoginPage: React.FC = () => {
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">My Bank Login</h2>
-        <form className="space-y-4">
+
+        <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
-              htmlFor="customerId"
+              htmlFor="customer_id"
               className="block text-sm font-medium mb-1"
             >
               Customer ID
             </label>
             <input
               type="text"
-              id="customerId"
-              value={customerId}
-              onChange={(e) => setCustomerId(e.target.value)}
+              id="customer_id"
+              {...register("customer_id")}
               className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
             />
+            {errors.customer_id && (
+              <p className="text-red-600 text-sm mt-1">
+                {errors.customer_id.message}
+              </p>
+            )}
           </div>
+
           <div>
             <label
               htmlFor="password"
@@ -72,19 +94,22 @@ const LoginPage: React.FC = () => {
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password")}
               className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
             />
+            {errors.password && (
+              <p className="text-red-600 text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
           </div>
-          {error && <p className="text-red-600 text-sm">{error}</p>}
+
           <button
-            type="button"
-            onClick={handleSubmit}
-            className="w-full py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition"
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition disabled:opacity-50"
           >
-            Login
+            {isSubmitting ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>
