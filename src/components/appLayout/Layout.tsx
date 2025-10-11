@@ -1,7 +1,6 @@
 import { type FC } from "react";
 
 import { Navigate, Outlet } from "react-router-dom";
-import { CircleArrowLeft } from "lucide-react";
 import { AppSidebar } from "../appSidebar/AppSidebar";
 import { useAppSelector, type RootState } from "../../redux/store";
 import { ProtectedRoute } from "../shared/ProtectedRoute";
