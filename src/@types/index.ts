@@ -13,6 +13,7 @@ export type DataTableProps<T> = {
   pageSize: number;
   total: number;
   onPageChange: (page: number) => void;
+  tableHeight?: string
 };
 
 export interface IUser {

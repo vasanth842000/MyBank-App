@@ -33,7 +33,7 @@ const FundTransfer = () => {
       </h2>
       <form onSubmit={handleTransfer} className="space-y-6">
         <div>
-          <label className="block mb-2 font-semibold text-blue-600 flex items-center gap-2">
+          <label className=" mb-2 font-semibold text-blue-600 flex items-center gap-2">
             <User2 className="w-5 h-5" />
             Account Number
           </label>
@@ -47,7 +47,7 @@ const FundTransfer = () => {
           />
         </div>
         <div>
-          <label className="block mb-2 font-semibold text-blue-600 flex items-center gap-2">
+          <label className=" mb-2 font-semibold text-blue-600 flex items-center gap-2">
             <IndianRupee className="w-5 h-5" />
             Amount
           </label>
@@ -103,7 +103,7 @@ const FundTransfer = () => {
         </div>
         {otpSent && (
           <div>
-            <label className="block mb-2 font-semibold text-blue-600 flex items-center gap-2">
+            <label className=" mb-2 font-semibold text-blue-600 flex items-center gap-2">
               <KeyRound className="w-5 h-5" />
               Enter OTP
             </label>

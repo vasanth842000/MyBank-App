@@ -10,8 +10,8 @@ const AccountDetails = () => {
   const [loading, setLoading] = useState(true);
 
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(5);
-  const total = transactionList.length;
+  const [pageSize] = useState(2);
+  const total = transactionList?.length;
 
   useEffect(() => {
     const fetchData = async () => {

@@ -7,11 +7,12 @@ export default function DataTable<T>({
   pageSize,
   total,
   onPageChange,
+  tableHeight
 }: DataTableProps<T>) {
   const pageCount = Math.ceil(total / pageSize);
 
   return (
-    <div className="shadow-lg rounded-md bg-white">
+    <div className="shadow-lg rounded-md bg-white" style={{ height: tableHeight || 'auto' }}>
       <table className="table w-full">
         <thead className="bg-blue-100 text-black">
           <tr>
@@ -36,10 +37,12 @@ export default function DataTable<T>({
               {columns.map((col) => (
                 <td
                   key={String(col.key)}
-                  className={`p-2 text-${col.align || "center"} text-gray-600`}
+                  className={`p-3 text-${col.align || "center"} text-gray-500`}
                 >
                   {col.render
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     ? col.render((row as any)[col.key], row)
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     : (row as any)[col.key]}
                 </td>
               ))}
