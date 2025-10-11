@@ -1,4 +1,4 @@
-import type { DataTableProps } from "@/@types";
+import type { DataTableProps } from "../../@types";
 
 export default function DataTable<T>({
   columns,

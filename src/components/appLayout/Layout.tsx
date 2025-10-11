@@ -7,7 +7,7 @@ const Layout: FC = () => {
     <section className="w-full flex">
       <AppSidebar />
       <main className="flex-1">
-        <header className="h-12 flex items-center border-b">
+        <header className="h-12 flex items-center border-b pl-2">
           <CircleArrowLeft />
         </header>
         <section className="h-[calc(100vh-48px)] w-full overflow-y-auto p-4">
