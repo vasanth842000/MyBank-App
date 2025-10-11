@@ -3,12 +3,15 @@ import type { Column, IUser } from "../@types";
 import API from "../axios";
 import DataTable from "../components/shared/Datatable";
 import Loader from "../components/shared/Loader";
+import { useAppSelector, type RootState } from "../redux/store";
+import { Navigate } from "react-router-dom";
 
 const Users = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(5);
+  const { user } = useAppSelector((state: RootState) => state.auth);
 
   // Fetch users from API
   const fetchUsers = async () => {
@@ -41,7 +44,7 @@ const Users = () => {
       align: "left",
     },
   ];
-
+  if (!user?.isAdmin) return <Navigate to="/" />;
   if (loading) return <Loader />;
   return (
     <section>
