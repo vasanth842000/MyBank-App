@@ -11,16 +11,14 @@ export default function DataTable<T>({
   const pageCount = Math.ceil(total / pageSize);
 
   return (
-    <div className="border rounded-md">
+    <div className="shadow-lg rounded-md bg-white">
       <table className="table w-full">
-        <thead>
+        <thead className="bg-blue-100 text-black">
           <tr>
             {columns.map((col) => (
               <th
                 key={String(col.key)}
-                className={`p-2 text-${
-                  col.align || "left"
-                } font-medium text-gray-600`}
+                className={`px-6 py-5 text-${col.align || "left"} font-medium`}
               >
                 {col.header}
               </th>
@@ -29,11 +27,16 @@ export default function DataTable<T>({
         </thead>
         <tbody>
           {data.map((row, rowIndex) => (
-            <tr key={rowIndex} className="border-t last:border-b">
+            <tr
+              key={rowIndex}
+              className={`${
+                rowIndex % 2 === 0 ? "bg-white" : "bg-gray-100"
+              }`}
+            >
               {columns.map((col) => (
                 <td
                   key={String(col.key)}
-                  className={`p-2 text-${col.align || "left"}`}
+                  className={`p-2 text-${col.align || "center"} text-gray-600`}
                 >
                   {col.render
                     ? col.render((row as any)[col.key], row)
@@ -51,14 +54,14 @@ export default function DataTable<T>({
         </div>
         <div className="space-x-2">
           <button
-            className="px-3 py-1 bg-foreground text-background rounded disabled:opacity-50"
+            className="px-3 py-1 bg-foreground text-background rounded disabled:opacity-50 cursor-pointer"
             onClick={() => onPageChange(page - 1)}
             disabled={page <= 1}
           >
             Prev
           </button>
           <button
-            className="px-3 py-1 bg-foreground text-background rounded disabled:opacity-50"
+            className="px-3 py-1 bg-foreground text-background rounded disabled:opacity-50 cursor-pointer"
             onClick={() => onPageChange(page + 1)}
             disabled={page >= pageCount}
           >
