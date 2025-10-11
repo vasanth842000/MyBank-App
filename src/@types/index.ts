@@ -1,5 +1,5 @@
 export type Column<T> = {
-  key: keyof T;
+  key: any;
   header: string;
   align?: "left" | "right" | "center";
   render?: (value: any, row: T) => React.ReactNode;
