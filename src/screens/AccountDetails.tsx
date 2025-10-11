@@ -27,7 +27,7 @@ const AccountDetails = () => {
   ]);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(2);
-  const total = transactionList.length;
+  const total = transactionList?.length;
 
   const [userDetails] = useState({
     name: "Muthu A",
