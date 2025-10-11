@@ -41,7 +41,7 @@ const Users = () => {
       key: "created_date",
       header: "Created At",
       render: (val) => new Date(val).toLocaleDateString(),
-      align: "left",
+      align: "center",
     },
   ];
   if (!user?.isAdmin) return <Navigate to="/" />;
