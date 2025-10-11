@@ -1,7 +1,6 @@
 import { type FC } from "react";
 
 import { Navigate, Outlet } from "react-router-dom";
-import { CircleArrowLeft } from "lucide-react";
 import { AppSidebar } from "../appSidebar/AppSidebar";
 import { useAppSelector, type RootState } from "../../redux/store";
 const Layout: FC = () => {
@@ -16,7 +15,13 @@ const Layout: FC = () => {
       <AppSidebar />
       <main className="flex-1">
         <header className="h-12 flex items-center justify-between border-b pl-2 pr-4">
-          <CircleArrowLeft />
+          {/* <CircleArrowLeft /> */}
+          <h3 className="font-semibold text-gray-800 text-sm">
+            Welcome{" "}
+            <span className="text-blue-600 font-bold text-lg">
+              {user?.account_holder_name}
+            </span>
+          </h3>
           {userInitial && (
             <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold">
               {userInitial}

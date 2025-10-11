@@ -112,12 +112,12 @@ const Beneficiary = () => {
       header: "Actions",
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       render: (value: any, row: any) => (
-        <div className={`flex gap-2 text-center`}>
+        <div className={`flex gap-2 text-center justify-center`}>
           <button onClick={() => handleEdit(row)}>
-            <Edit2Icon className="text-blue-500" />
+            <Edit2Icon className="text-blue-500 cursor-pointer" />
           </button>
           <button onClick={() => handleDelete(row)}>
-            <LucideTrash2 className="text-red-500" />
+            <LucideTrash2 className="text-red-500 cursor-pointer" />
           </button>
         </div>
       ),
@@ -136,7 +136,7 @@ const Beneficiary = () => {
               setType("Add");
               setIsOpen(true);
             }}
-            className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-3 rounded-xl font-bold shadow hover:scale-105 transition"
+            className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-3 rounded-xl font-bold shadow hover:scale-105 transition cursor-pointer"
           >
             Add Beneficiary
           </button>
