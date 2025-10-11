@@ -10,12 +10,12 @@ const FundTransfer = () => {
 
   const handleSendOtp = () => {
     setOtpSent(true);
-    alert(`OTP sent via ${otpMethod.toUpperCase()}`);
+    console.log(`OTP sent via ${otpMethod.toUpperCase()}`);
   };
 
   const handleTransfer = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Transferring ${amount} to account ${account} with OTP ${otp}`);
+   console.log(`Transferring ${amount} to account ${account} with OTP ${otp}`);
   };
 
   const handleCancel = () => {
