@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../redux/store";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector, type RootState } from "../redux/store";
 import { setCredentials } from "../redux/features/auth/authSlice";
 import type { IUser } from "../@types";
 import API from "../axios";
@@ -31,6 +31,7 @@ type LoginFormInputs = {
 const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { token } = useAppSelector((state: RootState) => state.auth);
 
   // 3️⃣ Setup react-hook-form
   const {
@@ -53,11 +54,12 @@ const LoginPage: React.FC = () => {
 
       dispatch(setCredentials({ token, user }));
       navigate("/");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       alert(err.response?.data?.message || "Login failed. Please try again.");
     }
   };
-
+  if (token) <Navigate to="/" />;
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">

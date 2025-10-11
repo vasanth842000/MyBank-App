@@ -29,11 +29,11 @@ const Users = () => {
 
   // Define table columns
   const columns: Column<IUser>[] = [
-    { key: "customer_id", header: "Customer ID", align: "left" },
-    { key: "account_holder_name", header: "Name", align: "left" },
-    { key: "account_type_account_no", header: "Account No", align: "left" },
-    { key: "phone", header: "Phone", align: "left" },
-    { key: "email", header: "Email", align: "left" },
+    { key: "customer_id", header: "Customer ID", align: "center" },
+    { key: "account_holder_name", header: "Name", align: "center" },
+    { key: "account_type_account_no", header: "Account No", align: "center" },
+    { key: "phone", header: "Phone", align: "center" },
+    { key: "email", header: "Email", align: "center" },
     {
       key: "created_date",
       header: "Created At",
@@ -53,6 +53,7 @@ const Users = () => {
         pageSize={pageSize}
         total={users?.length as number}
         onPageChange={(p: number) => setPage(p)}
+        tableHeight={"calc(100vh - 130px)"}
       />
     </section>
   );

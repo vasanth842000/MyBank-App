@@ -132,7 +132,7 @@ const FundTransfer = () => {
             className="bg-gradient-to-r from-gray-400 to-gray-600 text-white px-6 py-3 rounded-xl font-bold shadow hover:scale-105 transition"
             onClick={handleCancel}
           >
-            Transfer Fund Cancel
+            Cancel
           </button>
         </div>
       </form>
