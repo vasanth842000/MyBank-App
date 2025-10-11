@@ -6,7 +6,7 @@ export function AppSidebar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
-
+  console.log("user", user);
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login");
