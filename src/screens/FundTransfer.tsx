@@ -139,5 +139,4 @@ const FundTransfer = () => {
     </section>
   );
 };
-
 export default FundTransfer;
