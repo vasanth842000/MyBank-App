@@ -69,7 +69,7 @@ const AccountDetails = () => {
           {/* User Info Grid */}
           <div className="h-full flex justify-center items-center">
             <div className="bg-white p-6 w-full sm:w-12/12 lg:w-4/4 xl:w-3/3">
-              {/* User Details Grid */}
+              {/* User Details Grid  */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Name */}
                 <div className="flex justify-between">
