@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Mail, Smartphone, KeyRound, User2, DollarSign, IndianRupee } from "lucide-react";
+import { Mail, Smartphone, KeyRound, User2, IndianRupee } from "lucide-react";
 
 const FundTransfer = () => {
   const [amount, setAmount] = useState("");
