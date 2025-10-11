@@ -1,11 +1,9 @@
 import API from "../axios";
+import {urls} from "../api/apiUrls"
+import type { LoginData } from "../@types";
 
-interface LoginData {
-  username: string;
-  password: string;
-}
 
 export const loginAPI = async (data: LoginData) => {
-  const res = await API.post("/login", data);
+  const res = await API.post(urls.login, data);
   return res.data; // { token: string }
 };

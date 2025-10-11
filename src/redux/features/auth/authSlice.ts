@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { loginAPI } from "../../../api/authApi";
 import type { AuthState } from "./types";
+import type { IUser, LoginData } from "../../../@types";
 
 const initialState: AuthState = {
     token: localStorage.getItem("token") || "",
@@ -13,7 +14,7 @@ const initialState: AuthState = {
 // Async thunk for login
 export const loginUser = createAsyncThunk(
     "auth/login",
-    async (data: { username: string; password: string }, { rejectWithValue }) => {
+    async (data: LoginData, { rejectWithValue }) => {
         try {
             const response = await loginAPI(data);
             return response; // { token }
@@ -30,7 +31,7 @@ const authSlice = createSlice({
     reducers: {
         setCredentials: (
             state,
-            action: PayloadAction<{ token: string; user: string }>
+            action: PayloadAction<{ token: string; user: IUser }>
         ) => {
             state.token = action.payload.token;
             state.user = action.payload.user;
@@ -51,7 +52,6 @@ const authSlice = createSlice({
         builder.addCase(loginUser.fulfilled, (state, action: PayloadAction<{ token: string }>) => {
             state.status = "idle";
             state.token = action.payload.token;
-            state.user = "User"; // you can decode JWT to get username
             localStorage.setItem("token", action.payload.token);
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

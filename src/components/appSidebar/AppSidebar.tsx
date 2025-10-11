@@ -1,10 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { logout } from "../../redux/features/auth/authSlice";
 
 export function AppSidebar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -32,9 +33,14 @@ export function AppSidebar() {
         <NavLink to="/beneficiaries" className={linkClasses}>
           Beneficiaries
         </NavLink>
-        <NavLink to="/users" className={linkClasses}>
-          Users
+        <NavLink to="/fund-transfer" className={linkClasses}>
+          Fund Transfer
         </NavLink>
+        {user?.isAdmin && (
+          <NavLink to="/users" className={linkClasses}>
+            Users
+          </NavLink>
+        )}
       </nav>
 
       {/* Logout at bottom */}
