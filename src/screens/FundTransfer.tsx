@@ -15,7 +15,7 @@ const FundTransfer = () => {
 
   const handleTransfer = (e: React.FormEvent) => {
     e.preventDefault();
-   console.log(`Transferring ${amount} to account ${account} with OTP ${otp}`);
+    console.log(`Transferring ${amount} to account ${account} with OTP ${otp}`);
   };
 
   const handleCancel = () => {
