@@ -17,7 +17,12 @@ const Layout: FC = () => {
         <AppSidebar />
         <main className="flex-1">
           <header className="h-12 flex items-center justify-between border-b pl-2 pr-4">
-            <CircleArrowLeft />
+            <h3 className="font-semibold text-gray-800 text-sm">
+              Welcome{" "}
+              <span className="text-blue-600 font-bold text-lg">
+                {user?.account_holder_name}
+              </span>
+            </h3>{" "}
             {userInitial && (
               <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold">
                 {userInitial}
