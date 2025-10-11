@@ -21,7 +21,7 @@ function App() {
               <Route element={<Users />} path="/users" />
               <Route element={<FundTransfer />} path="/fund-transfer" />
             </Route>
-            <Route element={<LoginPage />} path="/login" />
+            {/* <Route element={<LoginPage />} path="/login" /> */}
             <Route element={<NotFound />} path="*" />
           </Routes>
         </Suspense>

@@ -10,7 +10,6 @@ const Layout: FC = () => {
     ? user.account_holder_name.charAt(0).toUpperCase()
     : "";
   // Redirect to login if not authenticated
-  if (!token) return <Navigate to={"/login"} />;
   return (
     <section className="w-full flex">
       <AppSidebar />
