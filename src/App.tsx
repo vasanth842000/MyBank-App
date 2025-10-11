@@ -6,9 +6,8 @@ import Layout from "./components/appLayout/Layout";
 import Beneficiary from "./screens/Beneficiary";
 import AccountDetails from "./screens/AccountDetails";
 import Loader from "./components/shared/Loader";
-import { Users } from "lucide-react";
 import NotFound from "./NotFound";
-import Login from "./components/Login/Login";
+import Users from "./screens/Users";
 
 function App() {
   const { token, user } = useSelector((state: RootState) => state.auth);
@@ -23,7 +22,7 @@ function App() {
             <Route element={<Layout />} path="/">
               <Route element={<AccountDetails />} index />
               <Route element={<Beneficiary />} path="/beneficiaries" />
-              <Route element={<Users />} path="/investments" />
+              <Route element={<Users />} path="/users" />
             </Route>
             <Route element={<NotFound />} path="*" />
           </Routes>
