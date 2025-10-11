@@ -115,7 +115,7 @@ const AccountDetails = () => {
         </div>
 
         {/* Transaction Table */}
-        {currentPageData?.length > 0 ? (
+  
           <DataTable
             columns={columns}
             data={currentPageData}
@@ -124,9 +124,7 @@ const AccountDetails = () => {
             total={total}
             onPageChange={handlePageChange}
           />
-        ) : (
-          <p className="text-center">No Transaction found!</p>
-        )}
+       
       </div>
     </div>
   );

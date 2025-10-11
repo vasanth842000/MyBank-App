@@ -2,17 +2,21 @@ import { useState, useCallback, useMemo } from "react";
 import DataTable from "../components/shared/Datatable";
 import { Edit2Icon, LucideTrash2, User2 } from "lucide-react";
 import { BeneficiariesList } from "./constants";
+import Toast from "../components/shared/Toast";
 
 const Beneficiary = () => {
   const [transactionList, setTransactionList] = useState(BeneficiariesList);
 
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(2);
+  const [pageSize] = useState(5);
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [editId, setEditId] = useState<number | null>(null);
   const [type, setType] = useState("add");
+  const [toast, setToast] = useState<{ message: string; type: string } | null>(
+    null
+  );
 
   const total = transactionList.length;
 
@@ -59,7 +63,6 @@ const Beneficiary = () => {
   const handleAddBeneficiary = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault(); // Prevent default form submission behavior
-
       // Generate a new ID by adding 1 to the highest existing ID (assuming IDs are sequential)
       const newId =
         Math.max(...transactionList.map((transaction) => transaction.id)) + 1;
@@ -74,7 +77,7 @@ const Beneficiary = () => {
 
       // Add the new beneficiary to the transaction list
       setTransactionList((prevList) => [...prevList, newBeneficiary]);
-
+      setToast({ message: "Beneficiary Added Successfully", type });
       // Reset form and close modal
       reset();
     },
@@ -84,7 +87,6 @@ const Beneficiary = () => {
   const handleEditBeneficiary = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault(); // Prevent default form submission behavior
-
       // Update the specific transaction by ID
       const updatedTransactionList = transactionList.map((transaction) =>
         transaction.id === editId
@@ -94,7 +96,7 @@ const Beneficiary = () => {
 
       // Update the transaction list with the new data
       setTransactionList(updatedTransactionList);
-
+      setToast({ message: "Beneficiary Details Updated Successfully", type });
       // Reset form and close modal
       reset();
     },
@@ -216,6 +218,15 @@ const Beneficiary = () => {
             </form>
           </div>
         </div>
+      )}
+
+      {toast && (
+        <Toast
+          message={toast.message}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          type={toast.type as any}
+          onClose={() => setToast(null)}
+        />
       )}
     </div>
   );

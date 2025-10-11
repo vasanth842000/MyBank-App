@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { persistor, useAppDispatch, useAppSelector } from "../../redux/store";
 import { logout } from "../../redux/features/auth/authSlice";
 
 export function AppSidebar() {
@@ -10,6 +10,7 @@ export function AppSidebar() {
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login");
+    persistor.purge();
   };
 
   // Function to return Tailwind classes based on active state
