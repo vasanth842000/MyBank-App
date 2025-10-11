@@ -1,0 +1,60 @@
+{
+  "fundsTransfer": [
+    {
+      "id": "b009",
+      "account": "987654321",
+      "amount": "10",
+      "otp": "127644",
+      "method": "sms"
+    },
+    {
+      "id": "77a5",
+      "account": "765319836",
+      "amount": "910873",
+      "otp": "198783",
+      "method": "email"
+    },
+    {
+      "id": "9bd7",
+      "account": "87653109",
+      "amount": "500",
+      "otp": "100",
+      "method": "sms"
+    },
+    {
+      "id": "f936",
+      "account": "87564192",
+      "amount": "600",
+      "otp": "98764",
+      "method": "sms"
+    },
+    {
+      "id": "47a7",
+      "account": "29861086",
+      "amount": "300",
+      "otp": "1977",
+      "method": "email"
+    },
+    {
+      "id": "0f74",
+      "account": "645709638",
+      "amount": "1500",
+      "otp": "9837",
+      "method": "sms"
+    },
+    {
+      "id": "47ee",
+      "account": "98328763683",
+      "amount": "500",
+      "otp": "230909",
+      "method": "sms"
+    },
+    {
+      "id": "ed6c",
+      "account": "19877557",
+      "amount": "400",
+      "otp": "47326",
+      "method": "sms"
+    }
+  ]
+}
