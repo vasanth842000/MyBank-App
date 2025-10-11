@@ -8,6 +8,7 @@ import AccountDetails from "./screens/AccountDetails";
 import Loader from "./components/shared/Loader";
 import NotFound from "./NotFound";
 import Users from "./screens/Users";
+import Login from "./components/Login/Login";
 
 function App() {
   const { token, user } = useSelector((state: RootState) => state.auth);
