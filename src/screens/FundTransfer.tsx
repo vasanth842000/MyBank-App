@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Mail, Smartphone, KeyRound, User2, IndianRupee } from "lucide-react";
+import axios from "axios";
 
 const FundTransfer = () => {
   const [amount, setAmount] = useState("");
@@ -23,17 +24,29 @@ const FundTransfer = () => {
     console.log(`OTP sent via ${otpMethod.toUpperCase()}`);
   };
 
-  const handleTransfer = (e: React.FormEvent) => {
-    e.preventDefault();
-    let newErrors: typeof errors = {};
-    if (!account) newErrors.account = "Enter account number";
-    if (!amount) newErrors.amount = "Enter amount";
-    if (!otp) newErrors.otp = "Enter OTP";
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length === 0) {
-      console.log(`Transferring ${amount} to account ${account} with OTP ${otp}`);
+const handleTransfer = async (e: React.FormEvent) => {
+  e.preventDefault();
+  let newErrors: typeof errors = {};
+  if (!account) newErrors.account = "Enter account number";
+  if (!amount) newErrors.amount = "Enter amount";
+  if (!otp) newErrors.otp = "Enter OTP";
+  setErrors(newErrors);
+  if (Object.keys(newErrors).length === 0) {
+    try {
+      const res = await axios.post("http://localhost:3000/fundsTransfer", {
+        account,
+        amount,
+        otp,
+        method: otpMethod,
+      });
+      console.log("post api:",res?.data)
+      alert("Fund transferred successfully!");
+      handleCancel(); 
+    } catch (err: any) {
+      alert(err?.response?.data?.message || "Fund transfer failed!");
     }
-  };
+  }
+};
 
   const handleCancel = () => {
     setAmount("");
