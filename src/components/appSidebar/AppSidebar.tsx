@@ -35,6 +35,9 @@ export function AppSidebar() {
         <NavLink to="/users" className={linkClasses}>
           Users
         </NavLink>
+        <NavLink to="/fund-transfer" className={linkClasses}>
+          Fund Transfer
+        </NavLink>
       </nav>
 
       {/* Logout at bottom */}

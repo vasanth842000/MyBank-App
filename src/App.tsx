@@ -8,6 +8,7 @@ import AccountDetails from "./screens/AccountDetails";
 import Loader from "./components/shared/Loader";
 import NotFound from "./NotFound";
 import Users from "./screens/Users";
+import FundTransfer from "./screens/FundTransfer";
 
 function App() {
   const { token, user } = useSelector((state: RootState) => state.auth);
@@ -22,6 +23,7 @@ function App() {
               <Route element={<AccountDetails />} index />
               <Route element={<Beneficiary />} path="/beneficiaries" />
               <Route element={<Users />} path="/users" />
+              <Route element={<FundTransfer />} path="/fund-transfer" />
             </Route>
             <Route element={<NotFound />} path="*" />
           </Routes>
