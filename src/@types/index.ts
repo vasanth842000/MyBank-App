@@ -13,6 +13,7 @@ export type DataTableProps<T> = {
   pageSize: number;
   total: number;
   onPageChange: (page: number) => void;
+  tableHeight?: string
 };
 
 export interface IUser {
@@ -34,4 +35,11 @@ export interface IUser {
 export interface LoginData {
   customer_id: string;
   password: string;
+}
+
+export interface ITransaction {
+  transaction_date: string;
+  transaction_type: string;
+  amount: number;
+  remarks: string;
 }
